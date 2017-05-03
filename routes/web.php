@@ -11,10 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
+Route::get('edit', 'MacController@edit')->name('edit');
+Route::post('edit', 'MacController@add');
+
+Route::post('/', 'MacController@delete');
