@@ -7,6 +7,7 @@ use App\Mac;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class MacController extends Controller
 {
@@ -46,23 +47,26 @@ class MacController extends Controller
     public function add(Request $request)
     {
     	$data = $request->all();
-    	$rules = [  'address' => 'required|string|unique:macs,address|max:17|regex:/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/',
+    	$rules = [  'address' => array('required', 
+    								   'string',
+    								   'unique:macs,address',
+    								   'max:17',
+    								   'regex:/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/'
+    							),
             		'ip' => array('string', 
             			  'max:13', 
             			  'unique:macs,ip',
             			  'regex:/^192\.168\.0\.((\d{1,2})|(1\d{1,2})|(2[0-4][0-9])|(25[0-5])){1}$/'
-        )];
-        $messages = array(  'address' => 'Enter MAC Address as alphanumeric pairs separated by colons (xx:xx:xx:xx:xx:xx)',
-            	  			'ip'  => 'Use IP Address format (192.168.0.x), where x is a number between 1 and 255'
-        );
+            			  )
+        ];
 
-        $validator = Validator::make($data, $rules, $messages);        
+        $validator = Validator::make($data, $rules);        
 
         if ($validator->fails()) {
 	        // redirect our user back to the form with the errors from the validator
 	        return Redirect::to('edit')
 	        	->withInput()
-	            ->withErrors($messages);
+	            ->withErrors($validator->messages());
     	}
     	else {
 	        Mac::create([
@@ -81,8 +85,17 @@ class MacController extends Controller
      */
     public function delete(Request $request)
     {
-        dd($request->all());
-        die;
+    	$input = $request->except(['_token']);
+        
+        foreach ($input as $id => $check) {
+        	DB::table('macs')->where('id', $id)->delete();
+        }
+
+        return redirect('/')->with('message', 'MAC Addresses successfully removed from filter list');
+
+        // dd($input);
+        // die;
+
     }
 
 }

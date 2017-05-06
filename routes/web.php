@@ -17,7 +17,7 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('edit', 'MacController@edit')->name('edit');
 Route::post('edit', 'MacController@add');
 

@@ -98,9 +98,17 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'address' => [
+            'required' => 'MAC Address required',
+            'unique' => 'MAC Address already exists in database',
+            'max' => 'MAC Address exceeds max length',
+            'regex' => 'Enter MAC Address as alphanumeric pairs separated by colons (xx:xx:xx:xx:xx:xx)'
         ],
+        'ip' => [
+            'max' => 'IP Address exceeds max length',
+            'unique' => 'IP Address already exists in database',
+            'regex' => 'Use IP Address format (192.168.0.x), where x is a number between 1 and 255'
+        ]
     ],
 
     /*
