@@ -16,7 +16,7 @@
                             @foreach ($macs as $mac)
                                 
                                 <div class="form-group">
-                                  {!! Form::checkbox($mac->id) !!}&#9;{{$mac->address}}
+                                  {!! Form::checkbox($mac->id) !!}&#9;{{$mac->name}}
                                 </div>
                               
                             @endforeach
@@ -39,6 +39,18 @@
             <a href="{{ route('edit') }}">
                 <button  type="button" class="btn btn-default">Edit MAC Filter List</button>
             </a>
+
+            <div id="on" name="on" align="center" style="margin-top: 2.5em; padding: 5px;">
+                @if($on->switch===1)
+                    <div class="alert alert-success">
+                        <h5>System is ARMED</h5>
+                    </div>
+                @else
+                    <div class="alert alert-danger">
+                        <h5>System is DISARMED</h5>
+                    </div>
+                @endif
+            </div>
 
         </div>
     </div>

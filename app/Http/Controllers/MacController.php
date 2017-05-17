@@ -46,18 +46,25 @@ class MacController extends Controller
      */
     public function add(Request $request)
     {
-    	$data = $request->all();
-    	$rules = [  'address' => array('required', 
+
+    	$rules = [  
+    				'name' => array('required',
+    								'string',
+    								'unique:macs,name',
+    								'max:20'
+    					),
+    				'address' => array('required', 
     								   'string',
     								   'unique:macs,address',
     								   'max:17',
     								   'regex:/^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/'
-    							),
-            		'ip' => array('string', 
-            			  'max:13', 
-            			  'unique:macs,ip',
-            			  'regex:/^192\.168\.0\.((\d{1,2})|(1\d{1,2})|(2[0-4][0-9])|(25[0-5])){1}$/'
-            			  )
+    					),
+            		'ip' => array('nullable',
+		            			  'string', 
+		            			  'max:13', 
+		            			  'unique:macs,ip',
+		            			  'regex:/^172\.16\.0\.((\d{1,2})|(1\d{1,2})|(2[0-4][0-9])|(25[0-5])){1}$/'
+            			)
         ];
 
         $validator = Validator::make($data, $rules);        
@@ -70,6 +77,7 @@ class MacController extends Controller
     	}
     	else {
 	        Mac::create([
+	        	'name' => $request['name'],
 	            'address' => strtoupper($request['address']),
 	            'ip' => $request['ip']
 	        ]);

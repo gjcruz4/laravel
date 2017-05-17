@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('MH490b'),
         ]);
         DB::table('macs')->insert([
+            'name' => 'geej',
             'address' => 'FC:DB:B3:38:16:22',
+        ]);
+        DB::table('actives')->insert([
+            'switch' => 1
         ]);
     }
 }

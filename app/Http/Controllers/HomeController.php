@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mac;
+use App\Active;
 
 class HomeController extends Controller
 {
@@ -25,7 +26,9 @@ class HomeController extends Controller
     public function index()
     {
         $macs = Mac::get();
+        $on = Active::first();
         return view('home')
-            ->with('macs', $macs);
+            ->with('macs', $macs)
+            ->with('on', $on);
     }
 }

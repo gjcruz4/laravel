@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMacsTable extends Migration
+class CreateActivesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateMacsTable extends Migration
      */
     public function up()
     {
-        Schema::create('macs', function (Blueprint $table) {
+        Schema::create('actives', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('address');
-            $table->string('ip')->nullable();
+            $table->smallInteger('switch');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateMacsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('macs');
+        Schema::dropIfExists('actives');
     }
 }
