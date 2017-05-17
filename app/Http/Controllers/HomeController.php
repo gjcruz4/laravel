@@ -26,8 +26,8 @@ class HomeController extends Controller
     public function index()
     {
         $macs = Mac::get();
-        $on = Active::first();
-        return view('home')
+        $on = Active::first()->value('switch');
+	return view('home')
             ->with('macs', $macs)
             ->with('on', $on);
     }

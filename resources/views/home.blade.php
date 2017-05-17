@@ -41,7 +41,7 @@
             </a>
 
             <div id="on" name="on" align="center" style="margin-top: 2.5em; padding: 5px;">
-                @if($on->switch===1)
+                @if($on==='1')
                     <div class="alert alert-success">
                         <h5>System is ARMED</h5>
                     </div>
